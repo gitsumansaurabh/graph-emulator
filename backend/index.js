@@ -10,6 +10,11 @@ app.use(express.static(path.resolve(__dirname, "build")));
 
 connectDB()
   .then(() => {
+    app.get("*", (req, res) =>
+      res.sendFile(path.resolve("build", "index.html"))
+    );
+  })
+  .then(() => {
     app.listen(process.env.PORT, () => {
       console.log("Server Started !!");
     });
@@ -17,5 +22,3 @@ connectDB()
   .catch((err) => {
     console.log("MONGO db connection failed !!! ", err);
   });
-
-app.get("*", (req, res) => res.sendFile(path.resolve("build", "index.html")));
